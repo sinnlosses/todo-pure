@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- ユーザスタイルシート -->
+    <link rel="stylesheet" href="./style.css">
+
+    <title>TODOS</title>
+  </head>
+  <body>
+    <div class="container">
+
+      <!-- 見出しタイトル -->
+      <div class="mx-auto" style="width: 300px;">
+        <span class="display-1 text-secondary">TODOS</span>
+      </div>
+
+      <!-- 入力 -->
+      <div class="input-group input-group-lg">
+        <input id="input" type="text" class="form-control" placeholder="what needs to be done?">
+      </div>
+      <button class="btn btn-primary btn-lg btn-block" onclick="addItem()">ADD</button>
+
+      <!-- 行間 -->
+      <br>
+
+      <!-- ファイル入力 -->
+      <div class="text-center">
+        <table class="table">
+          <tr>
+            <td>
+              <div class="custom-file">
+                <input id="input-file" type="file" class="custom-file-input">
+                <label class="custom-file-label" for="input-file" data-browse="Browse">Choose file Or Drop File</label>
+              </div>
+            </td>
+            <td>
+              <button type="button" class="btn btn-success" onclick="importFile();">IMPORT</button>  
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 行間 -->
+      <br>
+      
+      <!-- TODOリスト -->
+      <div class="table-responsive">
+        <table id="table-items" class="table table-hover">
+          <thead>
+            <tr>
+              <th style="width: 10%;" scope="col">status</th>
+              <th style="width: 70%;" scope="col">content</th>
+              <th style="width: 20%;" scope="col">delete</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- フッター -->
+      <table id="table-footer" class="table">
+        <tbody>
+          <td id="left-count">0 item left</td>
+          <td>
+            <input class="form-check-input" type="radio" id="radio-all" name="flexRadioDefault" onchange="changeVisibleList(this)" checked>
+            <label class="form-check-label" for="radio-all">
+              All
+            </label>
+          </td>
+          <td>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="radio-left" name="flexRadioDefault" onchange="changeVisibleList(this)">
+              <label class="form-check-label" for="radio-left">
+                Left
+              </label>
+          </td>
+          <td>
+              <input class="form-check-input" type="radio" id="radio-comp" name="flexRadioDefault" onchange="changeVisibleList(this)">
+              <label class="form-check-label" for="radio-comp">
+                Comp
+              </label>
+          </td>
+        </tbody>
+      </table>
+
+      <!-- 行間 -->
+      <br>
+
+      <!-- ファイルExport -->
+      <div class="text-center">
+        <a id="export" target="_blank"><button type="button" class="btn btn-success" onclick="exportFile();">EXPORT</button></a>
+      </div>
+
+   </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="code/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+    <script>
+      bsCustomFileInput.init();
+    </script>
+  </body>
+</html>

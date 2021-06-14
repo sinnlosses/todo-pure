@@ -1,0 +1,4 @@
+/* 大きく */
+input[type="checkbox"]{
+    transform: scale(2);
+  }
