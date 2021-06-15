@@ -237,7 +237,7 @@ function importFile() {
  */
 function exportFile() {
     const text = todoListMgr.toCsvString();
-    const blob = new Blob([text], { "type": "application/x-msdownload" });
+    const blob = new Blob([text], { "type": "application/octet-stream" });
     window.URL = window.URL || window.webkitURL;
     const link = document.getElementById(elementIds.export);
     link.href = window.URL.createObjectURL(blob);
