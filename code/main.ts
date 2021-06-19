@@ -48,6 +48,7 @@ import { TodoListMgr } from "./todoListMgr";
 /**
  * TODOアイテムを1つ追加する.
  * タスクの内容が未入力の場合は何もしない.
+ * @param todoListMgr タスク管理オブジェクト
  */
 function addOne(todoListMgr: TodoListMgr):void{
   const inputTodoElement: HTMLInputElement = <HTMLInputElement>document.getElementById(elementIds.input);
@@ -66,6 +67,7 @@ function addOne(todoListMgr: TodoListMgr):void{
 
 /**
  * 表示モードを変更する.
+ * @param todoListMgr タスク管理オブジェクト
  * @param chkBox チェックボックス
  */
  function changeVisibleList(todoListMgr:TodoListMgr, chkBox:HTMLInputElement): void{
@@ -78,6 +80,7 @@ function addOne(todoListMgr: TodoListMgr):void{
 /**
  * ファイルのImportを行う.
  * ファイルが未入力の場合何もしない.
+ * @param todoListMgr タスク管理オブジェクト
  */
 function importFile(todoListMgr:TodoListMgr){
   const fileElement: HTMLInputElement = <HTMLInputElement>document.getElementById(elementIds.inputFile);
@@ -90,21 +93,28 @@ function importFile(todoListMgr:TodoListMgr){
 
   const reader = new FileReader();
   reader.onload = () => {
-    todoListMgr.importFile(reader.result as string);
-  }
+    try{
+      todoListMgr.importFile(reader.result as string);
+    }catch(e){
+      alert("ファイルの形式が正しくありません。")
+    }
+  };
   reader.readAsText(file);
 }
 
 /**
  * タスクをファイルに出力する.
+ * @param todoListMgr タスク管理オブジェクト
  */
 function exportFile(todoListMgr:TodoListMgr){
 
-  const text:string = todoListMgr.toCsvString();
-  const blob = new Blob([text], {"type":"application/octet-stream"});
+  const text:string = todoListMgr.toJson();
+  const blob = new Blob([text], {"type":"application/json"});
   window.URL = window.URL || window.webkitURL;
   
   const link: HTMLLinkElement = <HTMLLinkElement>document.getElementById(elementIds.exportButton);
   link.href = window.URL.createObjectURL(blob);
-  link.setAttribute("download", "export.txt");
+
+  const now:Date = new Date();
+  link.setAttribute("download", `export_${now.getFullYear()}${now.getMonth()}${now.getDate()}${now.getHours()}${now.getMinutes()}${now.getSeconds()}.json`);
 }

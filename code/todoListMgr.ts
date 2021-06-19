@@ -51,14 +51,14 @@ export class TodoListMgr{
     }
 
     /**
-     * 指定したファイルをImportする.
-     * @param file Import対象
+     * 指定したJsonファイルをタスクリストにImportする.
+     * JsonオブジェクトにおけるIDは引き継がれず新規に採番される.
+     * @param json Import対象
      */
-    public importFile(file: string){
-      const todos: string[] = file.split("\n");
-      const todosToAdd:Todo[] = todos.map((todo) => {
-        const splitedTodo:string[] = todo.split(",");
-        return new Todo(splitedTodo[0], splitedTodo[1] === "true");
+    public importFile(json: string){
+      const todos:Todo[] = JSON.parse(json);
+      const todosToAdd:Todo[] = todos.map((todo: Todo) => {
+        return new Todo(todo["_content"], todo["_isCompleted"] === true);
       });
       this._todoList = this._todoList.concat(todosToAdd);
       this.drawItems();
@@ -66,11 +66,11 @@ export class TodoListMgr{
     }
   
     /**
-     * TODOリストをCsv形式にして返す.
+     * TODOリストをJson形式にして返す.
      */
-    public toCsvString(){
-      const text:string[] = this._todoList.map((todo) => todo.content + "," + todo.isCompleted);
-      return text.join("\n");
+    public toJson(){
+      const json:string = JSON.stringify(this._todoList);
+      return json;
     }
 
     /**

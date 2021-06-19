@@ -14,7 +14,7 @@ export class Todo{
     /**
      * タスクが完了したかどうかを示す値.
      */
-    isCompleted: boolean;
+    private _isCompleted: boolean;
     /**
      * タスクの内容.
      */
@@ -27,7 +27,7 @@ export class Todo{
      */
     constructor(content: string, isCompleted:boolean=false){
       this._id = this.numberingId();
-      this.isCompleted = isCompleted;
+      this._isCompleted = isCompleted;
       this._content = content;
     }
   
@@ -46,5 +46,12 @@ export class Todo{
   
     get content(): string{
       return this._content;
+    }
+
+    get isCompleted(): boolean{
+      return this._isCompleted;
+    }
+    set isCompleted(value: boolean){
+      this._isCompleted = value;
     }
   }
