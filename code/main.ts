@@ -9,8 +9,8 @@ import { TodoListMgr } from "./todoListMgr";
   const todoListMgr:TodoListMgr = new TodoListMgr(elementIds.tableItems);
 
   // 追加ボタン押下イベント
-  const addItemButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById(elementIds.addItemButton);
-  addItemButton.addEventListener("click", () => {
+  const addItemButton: HTMLInputElement = <HTMLInputElement>document.getElementById(elementIds.addItemButton);
+  addItemButton.addEventListener("click", (e) => {
     addOne(todoListMgr);
   });
 
