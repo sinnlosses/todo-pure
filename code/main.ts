@@ -2,73 +2,9 @@ import {elementIds} from "./elementIds";
 import { TodoListMgr } from "./todoListMgr";
 
 /**
- * TODOアイテムを1つ追加する.
- * タスクの内容が未入力の場合は何もしない.
- */
-function addItem(todoListMgr: TodoListMgr):void{
-  const inputTodoElement: HTMLInputElement = <HTMLInputElement>document.getElementById(elementIds.input);
-  const content: string = inputTodoElement.value;
-
-  if (content === ""){
-    return;
-  }
-
-  todoListMgr.addOne(content);
-
-  // アイテム追加後は再度入力できるよう値をリセットする.
-  inputTodoElement.value = "";
-
-}
-
-/**
- * ファイルのImportを行う.
- * ファイルが未入力の場合何もしない.
- */
-function importFile(todoListMgr:TodoListMgr){
-  const fileElement: HTMLInputElement = <HTMLInputElement>document.getElementById(elementIds.inputFile);
-
-  // ファイル要素が未定義または未入力の場合は何もしない
-  if (fileElement == null || fileElement.files == null || fileElement.files[0] == null){
-    return;
-  }
-  const file:Blob = fileElement.files[0];
-
-  const reader = new FileReader();
-  reader.onload = () => {
-    todoListMgr.importFile(reader.result as string);
-  }
-  reader.readAsText(file);
-}
-
-/**
- * タスクをファイルに出力する.
- */
-function exportFile(todoListMgr:TodoListMgr){
-
-  const text:string = todoListMgr.toCsvString();
-  const blob = new Blob([text], {"type":"application/octet-stream"});
-  window.URL = window.URL || window.webkitURL;
-  
-  const link: HTMLLinkElement = <HTMLLinkElement>document.getElementById(elementIds.exportButton);
-  link.href = window.URL.createObjectURL(blob);
-  link.setAttribute("download", "export.txt");
-}
-
-/**
- * 表示モードを変更する.
- * @param chkBox チェックボックス
- */
-function changeVisibleList(todoListMgr:TodoListMgr, chkBox:HTMLInputElement): void{
-  if (!chkBox.checked){
-    return;
-  }
-  todoListMgr.changeVisibleList(chkBox.id as elementIds);
-}
-
-/**
  * 画面ロード時のインスタンス生成とイベント設定.
  */
-window.onload = () => {
+ window.onload = () => {
 
   const todoListMgr:TodoListMgr = new TodoListMgr(elementIds.tableItems);
 
@@ -107,4 +43,68 @@ window.onload = () => {
   exportButton.addEventListener("click", () => {
     exportFile(todoListMgr);
   });
+}
+
+/**
+ * TODOアイテムを1つ追加する.
+ * タスクの内容が未入力の場合は何もしない.
+ */
+function addItem(todoListMgr: TodoListMgr):void{
+  const inputTodoElement: HTMLInputElement = <HTMLInputElement>document.getElementById(elementIds.input);
+  const content: string = inputTodoElement.value;
+
+  if (content === ""){
+    return;
+  }
+
+  todoListMgr.addOne(content);
+
+  // アイテム追加後は再度入力できるよう値をリセットする.
+  inputTodoElement.value = "";
+
+}
+
+/**
+ * 表示モードを変更する.
+ * @param chkBox チェックボックス
+ */
+ function changeVisibleList(todoListMgr:TodoListMgr, chkBox:HTMLInputElement): void{
+  if (!chkBox.checked){
+    return;
+  }
+  todoListMgr.changeVisibleList(chkBox.id as elementIds);
+}
+
+/**
+ * ファイルのImportを行う.
+ * ファイルが未入力の場合何もしない.
+ */
+function importFile(todoListMgr:TodoListMgr){
+  const fileElement: HTMLInputElement = <HTMLInputElement>document.getElementById(elementIds.inputFile);
+
+  // ファイル要素が未定義または未入力の場合は何もしない
+  if (fileElement == null || fileElement.files == null || fileElement.files[0] == null){
+    return;
+  }
+  const file:Blob = fileElement.files[0];
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    todoListMgr.importFile(reader.result as string);
+  }
+  reader.readAsText(file);
+}
+
+/**
+ * タスクをファイルに出力する.
+ */
+function exportFile(todoListMgr:TodoListMgr){
+
+  const text:string = todoListMgr.toCsvString();
+  const blob = new Blob([text], {"type":"application/octet-stream"});
+  window.URL = window.URL || window.webkitURL;
+  
+  const link: HTMLLinkElement = <HTMLLinkElement>document.getElementById(elementIds.exportButton);
+  link.href = window.URL.createObjectURL(blob);
+  link.setAttribute("download", "export.txt");
 }
