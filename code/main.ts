@@ -11,7 +11,7 @@ import { TodoListMgr } from "./todoListMgr";
   // 追加ボタン押下イベント
   const addItemButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById(elementIds.addItemButton);
   addItemButton.addEventListener("click", () => {
-    addItem(todoListMgr);
+    addOne(todoListMgr);
   });
 
   // Importボタン押下イベント
@@ -49,7 +49,7 @@ import { TodoListMgr } from "./todoListMgr";
  * TODOアイテムを1つ追加する.
  * タスクの内容が未入力の場合は何もしない.
  */
-function addItem(todoListMgr: TodoListMgr):void{
+function addOne(todoListMgr: TodoListMgr):void{
   const inputTodoElement: HTMLInputElement = <HTMLInputElement>document.getElementById(elementIds.input);
   const content: string = inputTodoElement.value;
 
