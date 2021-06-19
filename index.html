@@ -25,7 +25,7 @@
       <div class="input-group input-group-lg">
         <input id="input" type="text" class="form-control" placeholder="what needs to be done?">
       </div>
-      <button class="btn btn-primary btn-lg btn-block" onclick="addItem()">ADD</button>
+      <button id="add-item-button" class="btn btn-primary btn-lg btn-block">ADD</button>
 
       <!-- 行間 -->
       <br>
@@ -41,7 +41,7 @@
               </div>
             </td>
             <td>
-              <button type="button" class="btn btn-success" onclick="importFile();">IMPORT</button>  
+              <button id="import-button" type="button" class="btn btn-success">IMPORT</button>  
             </td>
           </tr>
         </table>
@@ -70,20 +70,20 @@
         <tbody>
           <td id="left-count">0 item left</td>
           <td>
-            <input class="form-check-input" type="radio" id="radio-all" name="flexRadioDefault" onchange="changeVisibleList(this)" checked>
+            <input class="form-check-input" type="radio" id="radio-all" name="flexRadioDefault" checked>
             <label class="form-check-label" for="radio-all">
               All
             </label>
           </td>
           <td>
             <div class="form-check">
-              <input class="form-check-input" type="radio" id="radio-left" name="flexRadioDefault" onchange="changeVisibleList(this)">
+              <input class="form-check-input" type="radio" id="radio-left" name="flexRadioDefault">
               <label class="form-check-label" for="radio-left">
                 Left
               </label>
           </td>
           <td>
-              <input class="form-check-input" type="radio" id="radio-comp" name="flexRadioDefault" onchange="changeVisibleList(this)">
+              <input class="form-check-input" type="radio" id="radio-comp" name="flexRadioDefault">
               <label class="form-check-label" for="radio-comp">
                 Comp
               </label>
@@ -96,7 +96,7 @@
 
       <!-- ファイルExport -->
       <div class="text-center">
-        <a id="export" target="_blank"><button type="button" class="btn btn-success" onclick="exportFile();">EXPORT</button></a>
+        <a id="export-button" target="_blank"><button type="button" class="btn btn-success">EXPORT</button></a>
       </div>
 
    </div>
@@ -106,7 +106,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="code/main.js"></script>
+    <script src="dist/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
     <script>
       bsCustomFileInput.init();
