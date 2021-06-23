@@ -33,12 +33,11 @@ export class TodoListMgr{
     constructor(tableElementId:string){
       this._tableElement = <HTMLTableElement>document.getElementById(tableElementId);
       this._showMode = elementIds.radioAll;
+      this._todoList = new Array();
       this._todoStorage = new StorageMgr("todo-storage-key")
       const todos:Todo[] = this._todoStorage.fetch();
-      this._todoList = todos;
 
-      this.drawItems();
-      this.updateFooter(this.getLeftCount());
+      this.importObj(todos)
 
     }
   
@@ -79,7 +78,22 @@ export class TodoListMgr{
       this.updateFooter(this.getLeftCount());
       this._todoStorage.save(this._todoList);
     }
-  
+
+    /**
+     * 指定したTODOをタスクリストにImportする.
+     * オブジェクトにおけるIDは引き継がれず新規に採番される.
+     * @param todos Import対象
+     */
+     public importObj(todos: Todo[]){
+      const todosToAdd:Todo[] = todos.map((todo: Todo) => {
+        return new Todo(todo.content, todo.isCompleted === true);
+      });
+      this._todoList = this._todoList.concat(todosToAdd);
+      this.drawItems();
+      this.updateFooter(this.getLeftCount());
+      this._todoStorage.save(this._todoList);
+    }
+
     /**
      * TODOリストをJson形式にして返す.
      */
