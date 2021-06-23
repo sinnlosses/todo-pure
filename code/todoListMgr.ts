@@ -1,5 +1,6 @@
 import { elementIds } from "./elementIds";
 import { Todo } from "./todo";
+import { StorageMgr} from "./localStorage";
 /**
  * TODOをリストとして管理するクラス.
  * 指定したテーブルエレメントに対してリスト表示する機能を有する.
@@ -18,6 +19,11 @@ export class TodoListMgr{
      * TODOリスト.
      */
     private _todoList: Todo[];
+
+    /**
+     * ローカルストレージ管理.
+     */
+    private _todoStorage:StorageMgr;
   
     /**
      * 管理するテーブルを保持する.
@@ -27,7 +33,13 @@ export class TodoListMgr{
     constructor(tableElementId:string){
       this._tableElement = <HTMLTableElement>document.getElementById(tableElementId);
       this._showMode = elementIds.radioAll;
-      this._todoList = new Array();
+      this._todoStorage = new StorageMgr("todo-storage-key")
+      const todos:Todo[] = this._todoStorage.fetch();
+      this._todoList = todos;
+
+      this.drawItems();
+      this.updateFooter(this.getLeftCount());
+
     }
   
     /**
@@ -39,6 +51,7 @@ export class TodoListMgr{
       this._todoList.push(todo);
       this.drawItems();
       this.updateFooter(this.getLeftCount());
+      this._todoStorage.save(this._todoList);
     }
 
     /**
@@ -48,6 +61,7 @@ export class TodoListMgr{
     public changeVisibleList(showMode: elementIds){
       this._showMode = showMode;
       this.drawItems();
+      this._todoStorage.save(this._todoList);
     }
 
     /**
@@ -58,11 +72,12 @@ export class TodoListMgr{
     public importFile(json: string){
       const todos:Todo[] = JSON.parse(json);
       const todosToAdd:Todo[] = todos.map((todo: Todo) => {
-        return new Todo(todo["_content"], todo["_isCompleted"] === true);
+        return new Todo(todo.content, todo.isCompleted === true);
       });
       this._todoList = this._todoList.concat(todosToAdd);
       this.drawItems();
       this.updateFooter(this.getLeftCount());
+      this._todoStorage.save(this._todoList);
     }
   
     /**
@@ -82,6 +97,7 @@ export class TodoListMgr{
       this.updateStatus(id, statusButton.checked);
       this.drawItems();  
       this.updateFooter(this.getLeftCount());
+      this._todoStorage.save(this._todoList);
     }
 
     /**
@@ -104,6 +120,7 @@ export class TodoListMgr{
       this.deleteOneFromListById(id);
       this.drawItems();
       this.updateFooter(this.getLeftCount());
+      this._todoStorage.save(this._todoList);
     }
 
     /**
@@ -190,4 +207,3 @@ export class TodoListMgr{
       }, 0);
     }
   }
-

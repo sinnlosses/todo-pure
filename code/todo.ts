@@ -10,15 +10,15 @@ export class Todo{
     /**
      * ID.
      */
-    private readonly _id: number;
+    id: number;
     /**
      * タスクが完了したかどうかを示す値.
      */
-    private _isCompleted: boolean;
+    isCompleted: boolean;
     /**
      * タスクの内容.
      */
-    private readonly _content: string;
+    content: string;
   
     /**
      * 新しいTODOタスクを生成する.
@@ -26,9 +26,9 @@ export class Todo{
      * @param content タスク内容
      */
     constructor(content: string, isCompleted:boolean=false){
-      this._id = this.numberingId();
-      this._isCompleted = isCompleted;
-      this._content = content;
+      this.id = this.numberingId();
+      this.isCompleted = isCompleted;
+      this.content = content;
     }
   
     /**
@@ -38,20 +38,5 @@ export class Todo{
     private numberingId(): number{
       Todo._currentMaxId++;
       return Todo._currentMaxId;
-    }
-  
-    get id(): number{
-      return this._id;
-    }
-  
-    get content(): string{
-      return this._content;
-    }
-
-    get isCompleted(): boolean{
-      return this._isCompleted;
-    }
-    set isCompleted(value: boolean){
-      this._isCompleted = value;
     }
   }
