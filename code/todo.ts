@@ -1,10 +1,11 @@
 /**
- * TODOアイテムの状態を管理するクラス.
- * インスタンス生成時にインスタンスを一意に特定するためのIDが自動で採番され付与される.
+ * このクラスはTODOアイテムの状態を保持する機能を提供する.
+ * TODOアイテムはインスタンス生成時に一意に特定するためのIDが自動で付与される.
  */
 export class Todo{
     /**
-     * IDの自動採番に使用される値.
+     * TODOアイテムの現在のIDの最大値
+     * TODOアイテムの生成時に自動採番される.
      */
     private static _currentMaxId: number = 0;
     /**
@@ -12,18 +13,19 @@ export class Todo{
      */
     id: number;
     /**
-     * タスクが完了したかどうかを示す値.
+     * タスクが完了したかどうかを示す値
      */
     isCompleted: boolean;
     /**
-     * タスクの内容.
+     * タスクの内容
      */
     content: string;
   
     /**
-     * 新しいTODOタスクを生成する.
+     * 新しいTODOアイテムを生成する.
      * IDは自動採番される.
      * @param content タスク内容
+     * @param isCompleted タスクが完了したかどうか
      */
     constructor(content: string, isCompleted:boolean=false){
       this.id = this.numberingId();
