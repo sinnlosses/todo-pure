@@ -1,6 +1,7 @@
 import { elementIds } from "./elementIds";
 import { Todo } from "./todo";
-import { StorageMgr} from "./localStorage";
+import { localStorageMgr} from "./localStorageMgr";
+
 /**
  * TODOをリストとして管理するクラス.
  * 指定したテーブルエレメントに対してリスト表示する機能を有する.
@@ -23,7 +24,7 @@ export class TodoListMgr{
     /**
      * ローカルストレージ管理.
      */
-    private _todoStorage:StorageMgr;
+    private _todoStorage:localStorageMgr;
   
     /**
      * 管理するテーブルを保持する.
@@ -34,7 +35,7 @@ export class TodoListMgr{
       this._tableElement = <HTMLTableElement>document.getElementById(tableElementId);
       this._showMode = elementIds.radioAll;
       this._todoList = new Array();
-      this._todoStorage = new StorageMgr("todo-storage-key")
+      this._todoStorage = new localStorageMgr("todo-storage-key")
       const todos:Todo[] = this._todoStorage.fetch();
 
       this.importObj(todos)
